@@ -31,10 +31,6 @@ class requestLib():
                 print('[WARNING] Unknow unicode error from response')
         return resp
 
-    #------------------------------------------------------------------------------------
-    # Function Zone
-    #------------------------------------------------------------------------------------
-
     def login(self, account, password , remember=False):
         data = {
             'userId': account,
@@ -85,7 +81,7 @@ class requestLib():
         cprint("Data Format is 'DepartmentID' : 'DepartmentName'", 'yellow')
         cprint(json.dumps(parmentDict, indent=4,ensure_ascii=False), 'green')
         return parmentDict
-    
+
     def post_tempData(self, token, userId, departmentId, departmentName, className, date,
         morningTemp=34, morningActivity='',
         noonTemp=37.5, noonActivity='',
@@ -123,7 +119,7 @@ class requestLib():
             respJson = {
                 "success": False,
                 "messages": [
-                    "[Error] {userId}-{date} 當天體溫已回報".format(userId=userId, date=date)
+                    "[Error] {userId}-{date} 當天資料已存在".format(userId=userId, date=date)
                 ]
             }
             return respJson
@@ -173,8 +169,7 @@ if __name__ == "__main__":
     morningDo = template[WEEKS_STR[nowWeek]]['morning']
     noonDo = template[WEEKS_STR[nowWeek]]['noon']
     nightDo = template[WEEKS_STR[nowWeek]]['night']
-    
-    
+
     base = datetime.datetime.today()
     date_list = [base - datetime.timedelta(days=x) for x in range(backDay)]
     for date in date_list:
